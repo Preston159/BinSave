@@ -31,7 +31,7 @@ public class Example {
 		String u = s.getString("3_umlaut_u"); //retrieve the string at "3_umlaut_u"
 		s.storeString("3_umlaut_u", u.replace('f', 'ü')); //replace the 'f' in the string with an 'ü'
 		s.store(); //write data to file
-		System.out.println(Integer.toHexString(s.getByte("byte"))); //retrive the byte at "byte" and print in hex
+		System.out.println(Integer.toHexString(s.getByte("byte"))); //retrieve the byte at "byte" and print in hex
 		boolean[] bools = s.getBools("8bools"); //retrieve the boolean[] at "8bools" and print
 		for(int i = 0;i < bools.length;i++) {
 			System.out.print(bools[i] + " ");

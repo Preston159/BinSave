@@ -573,6 +573,10 @@ public class Save {
 		return p;
 	}
 	
+	/**
+	 * Loads this object's data from a {@code Properties} object
+	 * @param p	The properties object from which to load
+	 */
 	public void loadFromProperties(Properties p) {
 		String[] names = sd.getNames();
 		for(String name : names) {

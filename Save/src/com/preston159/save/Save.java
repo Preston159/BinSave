@@ -1,9 +1,11 @@
+
 package com.preston159.save;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Properties;
 
 /**
  * @author Preston Petrie
@@ -522,6 +524,92 @@ public class Save {
 				} else {
 					storeUint(start + i, DataType.UINT_16BIT, (int) data.charAt(j));
 				}
+			}
+		}
+	}
+	
+	/**
+	 * Convert this {@code Save} object to a {@code Properties} object
+	 * @return	The {@code Properties} object
+	 */
+	public Properties convertToProperties() {
+		Properties p = new Properties();
+		String[] names = sd.getNames();
+		for(String name : names) {
+			String data = "";
+			switch(sd.getTypeOf(name)) {
+			case BYTE:
+				byte[] bytes = getBytes(name);
+				for(byte b : bytes) {
+					data += "0x" + Integer.toHexString(b & 0xff) + ";";
+				}
+				data = data.substring(0, data.length() - 1);
+				break;
+			case BOOL:
+			case BOOLS_8:
+				boolean[] bools = getBools(name);
+				for(boolean b : bools) {
+					data += b + ";";
+				}
+				data = data.substring(0, data.length() - 1);
+				break;
+			case INT_8BIT:
+			case INT_16BIT:
+			case INT_24BIT:
+			case INT_32BIT:
+				data = String.valueOf(getInt(name));
+				break;
+			case UINT_8BIT:
+			case UINT_16BIT:
+			case UINT_24BIT:
+				data = String.valueOf(getUint(name));
+				break;
+			case CHAR_ASCII:
+			case CHAR_UNICODE:
+				data = getString(name);
+			}
+			p.setProperty(name, data);
+		}
+		return p;
+	}
+	
+	public void loadFromProperties(Properties p) {
+		String[] names = sd.getNames();
+		for(String name : names) {
+			switch(sd.getTypeOf(name)) {
+			case BYTE:
+				String[] bd = p.getProperty(name, "0x00").split(";");
+				byte[] bytes = new byte[bd.length];
+				for(int i = 0;i < bd.length;i++) {
+					bytes[i] = (byte) Integer.parseInt(bd[i].replaceFirst("0x", ""), 16);
+				}
+				storeBytes(name, bytes);
+				break;
+			case BOOL:
+			case BOOLS_8:
+				String[] arr = p.getProperty(name, "false").split(";");
+				boolean[] bools = new boolean[arr.length];
+				for(int i = 0;i < bools.length;i++) {
+					bools[i] = Boolean.parseBoolean(arr[i]);
+				}
+				storeBools(name, bools);
+				break;
+			case INT_8BIT:
+			case INT_16BIT:
+			case INT_24BIT:
+			case INT_32BIT:
+				int i = Integer.parseInt(p.getProperty(name, "0"));
+				storeInt(name, i);
+				break;
+			case UINT_8BIT:
+			case UINT_16BIT:
+			case UINT_24BIT:
+				int u = Integer.parseInt(p.getProperty(name, "0"));
+				storeUint(name, u);
+				break;
+			case CHAR_ASCII:
+			case CHAR_UNICODE:
+				storeString(name, p.getProperty(name, "\0"));
 			}
 		}
 	}

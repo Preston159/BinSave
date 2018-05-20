@@ -101,4 +101,16 @@ public class StorageData {
 		return null;
 	}
 	
+	/**
+	 * Get an array containing the names of the data stored
+	 * @return	An array containing the names of the data stored
+	 */
+	public String[] getNames() {
+		String[] out = new String[names.length];
+		for(int i = 0;i < out.length;i++) {
+			out[i] = names[i];
+		}
+		return out;
+	}
+	
 }

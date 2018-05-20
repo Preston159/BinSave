@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.zip.DataFormatException;
 
 /**
  * @author Preston Petrie
@@ -576,8 +577,9 @@ public class Save {
 	/**
 	 * Loads this object's data from a {@code Properties} object
 	 * @param p	The properties object from which to load
+	 * @throws DataFormatException	if data in the specified {@code Properties} cannot be correctly decoded
 	 */
-	public void loadFromProperties(Properties p) {
+	public void loadFromProperties(Properties p) throws DataFormatException {
 		String[] names = sd.getNames();
 		for(String name : names) {
 			switch(sd.getTypeOf(name)) {
@@ -585,7 +587,11 @@ public class Save {
 				String[] bd = p.getProperty(name, "0x00").split(";");
 				byte[] bytes = new byte[bd.length];
 				for(int i = 0;i < bd.length;i++) {
-					bytes[i] = (byte) Integer.parseInt(bd[i].replaceFirst("0x", ""), 16);
+					try {
+						bytes[i] = (byte) Integer.parseInt(bd[i].replaceFirst("0x", ""), 16);
+					} catch(NumberFormatException nfe) {
+						throw new DataFormatException("Invalid byte data at key \"" + name + "\" index " + i);
+					}
 				}
 				storeBytes(name, bytes);
 				break;
@@ -594,7 +600,11 @@ public class Save {
 				String[] arr = p.getProperty(name, "false").split(";");
 				boolean[] bools = new boolean[arr.length];
 				for(int i = 0;i < bools.length;i++) {
-					bools[i] = Boolean.parseBoolean(arr[i]);
+					try {
+						bools[i] = parseBoolean(arr[i]);
+					} catch(DataFormatException dfe) {
+						throw new DataFormatException("Invalid boolean data at key \"" + name + "\" index " + i);
+					}
 				}
 				storeBools(name, bools);
 				break;
@@ -602,19 +612,39 @@ public class Save {
 			case INT_16BIT:
 			case INT_24BIT:
 			case INT_32BIT:
-				int i = Integer.parseInt(p.getProperty(name, "0"));
+				int i;
+				try {
+					i = Integer.parseInt(p.getProperty(name, "0"));
+				} catch(NumberFormatException nfe) {
+					throw new DataFormatException("Invalid signed integer data at key \"" + name + "\"");
+				}
 				storeInt(name, i);
 				break;
 			case UINT_8BIT:
 			case UINT_16BIT:
 			case UINT_24BIT:
-				int u = Integer.parseInt(p.getProperty(name, "0"));
+				int u;
+				try {
+					u = Integer.parseInt(p.getProperty(name, "0"));
+				} catch(NumberFormatException nfe) {
+					throw new DataFormatException("Invalid unsigned integer data at key \"" + name + "\"");
+				}
 				storeUint(name, u);
 				break;
 			case CHAR_ASCII:
 			case CHAR_UNICODE:
 				storeString(name, p.getProperty(name, "\0"));
 			}
+		}
+	}
+	
+	private static boolean parseBoolean(String s) throws DataFormatException {
+		if(s.equalsIgnoreCase("true")) {
+			return true;
+		} else if(s.equalsIgnoreCase("false")) {
+			return false;
+		} else {
+			throw new DataFormatException("Invalid boolean string");
 		}
 	}
 

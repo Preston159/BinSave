@@ -81,9 +81,9 @@ public class Save {
 	
 	/**
 	 * <p>Gets a {@code byte} from the file with the specified name</p>
-	 * <p>Data must be of type {@code DataType.BYTE}</p>
+	 * <p>Data must be of type {@link DataType#BYTE BYTE}</p>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
-	 * <p>Use {@code getBytes()} to get all values</p>
+	 * <p>Use {@link #getBytes(String) getBytes} to get all values</p>
 	 * @param name	The name of the data
 	 * @return		The {@code byte} stored
 	 */
@@ -98,7 +98,7 @@ public class Save {
 	
 	/**
 	 * <p>Gets a {@code byte[]} from the file with the specified name</p>
-	 * <p>Data must be of type {@code DataType.BYTE}</p>
+	 * <p>Data must be of type {@link DataType#BYTE BYTE}</p>
 	 * @param name	The name of the data
 	 * @return		The {@code byte[]} stored
 	 */
@@ -117,9 +117,9 @@ public class Save {
 	
 	/**
 	 * <p>Gets a {@code boolean} from the file with the specified name</p>
-	 * <p>Data must be of type {@code DataType.BOOL}</p>
+	 * <p>Data must be of type {@link DataType#BOOL BOOL}</p>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
-	 * <p>Use {@code getBools()} to get all values</p>
+	 * <p>Use {@link #getBools(String) getBools} to get all values</p>
 	 * @param name	The name of the data
 	 * @return		The {@code boolean} stored
 	 */
@@ -135,7 +135,7 @@ public class Save {
 	
 	/**
 	 * <p>Gets a {@code boolean[]} from the file with the specified name</p>
-	 * <p>Data must be of type {@code DataType.BOOL} OR {@code DataType.BOOLS_8}</p>
+	 * <p>Data must be of type {@link DataType#BOOL BOOL} OR {@link DataType#BOOLS_8 BOOLS_8}</p>
 	 * @param name	The name of the data
 	 * @return		The {@code boolean[]} stored
 	 */
@@ -176,7 +176,7 @@ public class Save {
 	
 	/**
 	 * <p>Gets a signed integer from the file with the specified name</p>
-	 * <p>Data must be of type {@code DataType.INT_8BIT} OR {@code DataType.INT_16BIT} OR {@code DataType.INT_24BIT} OR {@code DataType.INT_32BIT}</p>
+	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR {@link DataType#INT_32BIT INT_32BIT}</p>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
 	 * <p>There currently does not exist a function to get multiple integer values</p>
 	 * @param name	The name of the data
@@ -215,7 +215,7 @@ public class Save {
 	
 	/**
 	 * <p>Gets an unsigned integer from the file with the specified name</p>
-	 * <p>Data must be of type {@code DataType.UINT_8BIT} OR {@code DataType.UINT_16BIT} OR {@code DataType.UINT_24BIT}</p>
+	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}</p>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
 	 * <p>There currently does not exist a function to get multiple integer values</p>
 	 * @param name	The name of the data
@@ -247,9 +247,9 @@ public class Save {
 	
 	/**
 	 * <p>Gets a {@code char} from the file with the specified name</p>
-	 * <p>Data must be of type {@code DataType.CHAR_ASCII} OR {@code DataType.CHAR_UNICODE}</p>
+	 * <p>Data must be of type {@link DataType#CHAR_ASCII CHAR_ASCII} OR {@link DataType#CHAR_UNICODE CHAR_UNICODE}</p>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
-	 * <p>Use {@code getString()} to get all values</p>
+	 * <p>Use {@link #getString(String) getString} to get all values</p>
 	 * @param name	The name of the data
 	 * @return		The {@code char} stored
 	 */
@@ -274,7 +274,7 @@ public class Save {
 	
 	/**
 	 * <p>Gets a {@code String} from the file with the specified name</p>
-	 * <p>Data must be of type {@code DataType.CHAR_ASCII} OR {@code DataType.CHAR_UNICODE}</p>
+	 * <p>Data must be of type {@link DataType#CHAR_ASCII CHAR_ASCII} OR {@link DataType#CHAR_UNICODE CHAR_UNICODE}</p>
 	 * @param name	The name of the data
 	 * @return		The {@code String} stored
 	 */
@@ -311,7 +311,7 @@ public class Save {
 	
 	/**
 	 * <p>Stores a {@code byte} in the file at the specified name</p>
-	 * <p>Data must be of type {@code DataType.BYTE}</p>
+	 * <p>Data must be of type {@link DataType#BYTE BYTE}</p>
 	 * @param name	The name of the data
 	 * @param data	The {@code byte} to store
 	 */
@@ -321,7 +321,7 @@ public class Save {
 	
 	/**
 	 * <p>Stores a {@code byte[]} in the file at the specified name</p>
-	 * <p>Data must be of type {@code DataType.BYTE}</p>
+	 * <p>Data must be of type {@link DataType#BYTE BYTE}</p>
 	 * @param name	The name of the data
 	 * @param data	The {@code byte[]} to store
 	 */
@@ -359,7 +359,7 @@ public class Save {
 	
 	/**
 	 * <p>Stores a {@code boolean} in the file at the specified name</p>
-	 * <p>Data must be of type {@code DataType.BOOL}</p>
+	 * <p>Data must be of type {@link DataType#BOOL BOOL}</p>
 	 * @param name	The name of the data
 	 * @param data	The {@code boolean} to store
 	 */
@@ -369,7 +369,7 @@ public class Save {
 	
 	/**
 	 * <p>Stores a {@code boolean[]} in the file at the specified name</p>
-	 * <p>Data must be of type {@code DataType.BOOL} OR {@code DataType.BOOLS_8}</p>
+	 * <p>Data must be of type {@link DataType#BOOL BOOL} OR {@link DataType#BOOLS_8 BOOLS_8}</p>
 	 * <p>If Data is of type {@code DataType.BOOLS_8}, the array's size must be a multiple of 8</p>
 	 * @param name	The name of the data
 	 * @param data	The {@code boolean[]} to store
@@ -417,7 +417,7 @@ public class Save {
 	
 	/**
 	 * <p>Stores a signed integer in the file at the specified name</p>
-	 * <p>Data must be of type {@code DataType.INT_8BIT} OR {@code DataType.INT_16BIT} OR {@code DataType.INT_24BIT} OR {@code DataType.INT_32BIT}</p>
+	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR {@link DataType#INT_32BIT INT_32BIT}</p>
 	 * @param name	The name of the data
 	 * @param data	The signed integer to store
 	 */
@@ -445,7 +445,7 @@ public class Save {
 	
 	/**
 	 * <p>Stores an unsigned integer in the file at the specified name</p>
-	 * <p>Data must be of type {@code DataType.UINT_8BIT} OR {@code DataType.UINT_16BIT} OR {@code DataType.UINT_24BIT}</p>
+	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}</p>
 	 * @param name	The name of the data
 	 * @param data	The unsigned integer to store
 	 */
@@ -476,7 +476,7 @@ public class Save {
 	
 	/**
 	 * <p>Stores a {@code char} in the file at the specified name</p>
-	 * <p>Data must be of type {@code DataType.CHAR_ASCII} OR {@code DataType.CHAR_UNICODE}</p>
+	 * <p>Data must be of type {@link DataType#CHAR_ASCII CHAR_ASCII} OR {@link DataType#CHAR_UNICODE CHAR_UNICODE}</p>
 	 * @param name	The name of the data
 	 * @param data	The {@code char} to store
 	 */
@@ -496,7 +496,7 @@ public class Save {
 	
 	/**
 	 * <p>Stores a {@code String} in the file at the specified name</p>
-	 * <p>Data must be of type {@code DataType.CHAR_ASCII} OR {@code DataType.CHAR_UNICODE}</p>
+	 * <p>Data must be of type {@link DataType#CHAR_ASCII CHAR_ASCII} OR {@link DataType#CHAR_UNICODE CHAR_UNICODE}</p>
 	 * @param name	The name of the data
 	 * @param data	The {@code String} to store
 	 */

@@ -9,6 +9,7 @@ import java.util.Properties;
 import java.util.zip.DataFormatException;
 
 /**
+ * Stores save data
  * @author Preston Petrie
  */
 public class Save {

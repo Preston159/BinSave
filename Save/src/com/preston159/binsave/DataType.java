@@ -1,4 +1,4 @@
-package com.preston159.save;
+package com.preston159.binsave;
 
 /**
  * The storage type of a datapoint

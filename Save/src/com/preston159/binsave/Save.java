@@ -1,5 +1,5 @@
 
-package com.preston159.save;
+package com.preston159.binsave;
 
 import java.io.File;
 import java.io.FileInputStream;

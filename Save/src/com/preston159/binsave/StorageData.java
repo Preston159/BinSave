@@ -1,4 +1,4 @@
-package com.preston159.save;
+package com.preston159.binsave;
 
 /**
  * Store storage data for a {@code Save} object

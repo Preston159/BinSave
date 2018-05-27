@@ -1,4 +1,4 @@
-package com.preston159.save;
+package com.preston159.binsave;
 
 /**
  * Stores the name, type, and number of objects at a datapoint, for use in constructing a {@code Save} object

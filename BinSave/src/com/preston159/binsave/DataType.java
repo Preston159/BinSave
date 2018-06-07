@@ -27,7 +27,7 @@ public enum DataType {
 	 */
 	INT_8BIT(1),
 	/**
-	 * <p><strong>Length:</strong> 2 byts</p>
+	 * <p><strong>Length:</strong> 2 bytes</p>
 	 * <p><strong>Stores:</strong> a 16-bit signed integer</p>
 	 */
 	INT_16BIT(2),
@@ -37,7 +37,7 @@ public enum DataType {
 	 */
 	INT_24BIT(3),
 	/**
-	 * <p><strong>Length:</strong> 4 byte</p>
+	 * <p><strong>Length:</strong> 4 bytes</p>
 	 * <p><strong>Stores:</strong> a 32-bit signed integer</p>
 	 */
 	INT_32BIT(4),

@@ -50,11 +50,15 @@ It is recommended to not reference the `Save` object constantly while the progra
   - Longs
 - Add save file versions to allow format changes. Currently, any expansion must be done by adding new data to the end of the file.
 
+# Known issues
+
+The reading of ints and uints currently returns incorrect values for 16-, 24-, and 32-bit values. These values are stored correctly.
+
 # Release
 
-[Latest](./BinSave/Release/0.0.1.jar)
+[Latest](./BinSave/Release/0.0.1.jar) NOTE: INTS AND UINTS ARE BROKEN IN THIS VERSION
 
-[0.0.1](./BinSave/Release/0.0.1.jar)
+[0.0.1](./BinSave/Release/0.0.1.jar) NOTE: INTS AND UINTS ARE BROKEN IN THIS VERSION
 
 # API Reference
 

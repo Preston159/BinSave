@@ -153,6 +153,13 @@ public class Save {
 		return getShortBools(start, len);
 	}
 	
+	/**
+	 * <p>Gets a {@code boolean[]} from the file with the specified starting position</p>
+	 * <p>Reads data as type {@link DataType#BOOLS_8 BOOLS_8}, but ignores actual type</p>
+	 * @param start	The starting position of the data
+	 * @param len	The length of the data in bytes
+	 * @return		The {@code boolean[]} stored
+	 */
 	private boolean[] getLongBools(int start, int len) {
 		boolean[] out = new boolean[len];
 		for(int i = 0;i < len;i++) {
@@ -162,6 +169,13 @@ public class Save {
 		return out;
 	}
 	
+	/**
+	 * <p>Gets a {@code boolean[]} from the file with the specified starting position</p>
+	 * <p>Reads data as type {@link DataType#BOOL BOOL}, but ignores actual type</p>
+	 * @param start	The starting position of the data
+	 * @param len	The length of the data in bytes
+	 * @return		The {@code boolean[]} stored
+	 */
 	private boolean[] getShortBools(int start, int len) {
 		boolean[] out = new boolean[len * 8];
 		for(int i = 0;i < len;i++) {
@@ -199,6 +213,24 @@ public class Save {
 		return getInt(start, type);
 	}
 	
+	/**
+	 * <p>Gets a signed integer from the file with the specified starting position</p>
+	 * <p>Reads the data as the given type, but ignores the actual type</p>
+	 * <p>The given type must be one of the following:</p>
+	 * <ul>
+	 * <li>{@link DataType#INT_8BIT INT_8BIT}</li>
+	 * <li>{@link DataType#INT_16BIT INT_16BIT}</li>
+	 * <li>{@link DataType#INT_24BIT INT_24BIT}</li>
+	 * <li>{@link DataType#INT_32BIT INT_32BIT}</li>
+	 * <li>{@link DataType#INT_40BIT INT_40BIT}</li>
+	 * <li>{@link DataType#INT_48BIT INT_48BIT}</li>
+	 * <li>{@link DataType#INT_56BIT INT_56BIT}</li>
+	 * <li>{@link DataType#INT_64BIT INT_64BIT}</li>
+	 * </ul>
+	 * @param start	The starting position of the data
+	 * @param type	The type of the data
+	 * @return		The signed integer stored
+	 */
 	private int getInt(int start, DataType type) {
 		ByteBuffer buffer = ByteBuffer.allocate(4);
 		switch(type) {
@@ -336,6 +368,19 @@ public class Save {
 		return getUint(start, type);
 	}
 	
+	/**
+	 * <p>Gets an unsigned integer from the file at the specified starting position</p>
+	 * <p>Reads the data as the given type, but ignores the actual type</p>
+	 * <p>The given type must be one of the following:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * </ul>
+	 * @param start	The starting position of the data
+	 * @param type	The type of the data
+	 * @return		The unsigned integer stored
+	 */
 	private int getUint(int start, DataType type) {
 		ByteBuffer buffer = ByteBuffer.allocate(4);
 		switch(type) {
@@ -377,6 +422,23 @@ public class Save {
 		return getLongUint(start, type);
 	}
 	
+	/**
+	 * <p>Gets an unsigned integer from the file at the specified starting position</p>
+	 * <p>Reads the data as the given type, but ignores the actual type</p>
+	 * <p>The given type must be one of the following:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * <li>{@link DataType#UINT_32BIT UINT_32BIT}</li>
+	 * <li>{@link DataType#UINT_40BIT UINT_40BIT}</li>
+	 * <li>{@link DataType#UINT_48BIT UINT_48BIT}</li>
+	 * <li>{@link DataType#UINT_56BIT UINT_56BIT}</li>
+	 * </ul>
+	 * @param start	The starting position of the data
+	 * @param type	The type of the data
+	 * @return		The unsigned integer stored
+	 */
 	private long getLongUint(int start, DataType type) {
 		ByteBuffer buffer = ByteBuffer.allocate(8);
 		switch(type) {
@@ -419,6 +481,12 @@ public class Save {
 		return getUnicodeChar(start);
 	}
 	
+	/**
+	 * <p>Gets a {@code char} from the file at the specified position</p>
+	 * <p>Reads the data as type {@link DataType#CHAR_UNICODE CHAR_UNICODE}, but ignores the actual type</p>
+	 * @param start	The starting position of the data
+	 * @return		The {@code char} stored
+	 */
 	private char getUnicodeChar(int start) {
 		int out = 0;
 		out += bytes[start + 1] << 8 & 0xff;
@@ -445,6 +513,13 @@ public class Save {
 		return getUnicodeString(start, len);
 	}
 	
+	/**
+	 * <p>Gets a {@code String} from the file with the specified name</p>
+	 * <p>Reads data as type {@link DataType#CHAR_ASCII CHAR_ASCII}, but ignores the actual type</p>
+	 * @param start	The starting position of the data
+	 * @param len	The length of the data in bytes
+	 * @return		The {@code String} stored
+	 */
 	private String getASCIIString(int start, int len) {
 		String out = "";
 		for(int i = 0;i < len;i++) {
@@ -454,6 +529,13 @@ public class Save {
 		return out;
 	}
 	
+	/**
+	 * <p>Gets a {@code String} from the file with the specified name</p>
+	 * <p>Reads data as type {@link DataType#CHAR_UNICODE CHAR_UNICODE}, but ignores the actual type</p>
+	 * @param start	The starting position of the data
+	 * @param len	The length of the data in bytes
+	 * @return		The {@code String} stored
+	 */
 	private String getUnicodeString(int start, int len) {
 		String out = "";
 		for(int i = 0;i < len;i += 2) {
@@ -533,6 +615,13 @@ public class Save {
 		}
 	}
 	
+	/**
+	 * <p>Stores a {@code byte[]} in the file at the specified name</p>
+	 * <p>Ignores the type of the data and stores raw bytes</p>
+	 * @param start	The starting position of the data
+	 * @param data	The data to store
+	 * @param dlen	The length of the field in which the data will be stored
+	 */
 	private void storeBytes(int start, byte[] data, int dlen) {
 		if(data.length > dlen) {
 			System.out.println("WARNING: STORING DATA AT BYTE INDEX " + start + " WHICH WILL BE TRUNCATED");
@@ -577,6 +666,13 @@ public class Save {
 		}
 	}
 	
+	/**
+	 * <p>Stores a {@code boolean[]} in the file at the specified position</p>
+	 * <p>Stores the data as type {@link DataType#BOOLS_8}, but ignores the actual type</p>
+	 * @param start	The starting position of the data
+	 * @param data	The data to be stored
+	 * @param dlen	The length of the field in which the data will be stored
+	 */
 	private void storeLongBools(int start, boolean[] data, int dlen) {
 		int len = data.length;
 		byte[] store = new byte[len];
@@ -586,6 +682,13 @@ public class Save {
 		storeBytes(start, store, dlen);
 	}
 	
+	/**
+	 * <p>Stores a {@code boolean[]} in the file at the specified position</p>
+	 * <p>Stores the data as type {@link DataType#BOOL}, but ignores the actual type</p>
+	 * @param start	The starting position of the data
+	 * @param data	The data to be stored
+	 * @param dlen	The length of the field in which the data will be stored
+	 */
 	private void storeShortBools(int start, boolean[] data, int dlen) {
 		if(data.length % 8 != 0) {
 			throw new IllegalArgumentException("Number of booleans for type BOOLS_8 must be a multiple of 8");
@@ -716,6 +819,18 @@ public class Save {
 		storeUint(start, type, data);
 	}
 	
+	/**
+	 * <p>Stores an unsigned integer in the file at the specified position</p>
+	 * <p>Stores data as the given type, but ignores the actual type</p>
+	 * <p>The given type must be one of the following:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * @param start	The starting position of the data
+	 * @param type	The type of the data to store
+	 * @param data	The data to store
+	 */
 	private void storeUint(int start, DataType type, int data) {
 		if(type == DataType.UINT_8BIT) {
 			storeBytes(start, new byte[] { (byte) (data & 0xff) }, 1);
@@ -761,6 +876,22 @@ public class Save {
 		}
 	}
 	
+	/**
+	 * <p>Stores an unsigned integer in the file at the specified position</p>
+	 * <p>Stores data as the given type, but ignores the actual type</p>
+	 * <p>The given type must be one of the following:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * <li>{@link DataType#UINT_32BIT UINT_32BIT}</li>
+	 * <li>{@link DataType#UINT_40BIT UINT_40BIT}</li>
+	 * <li>{@link DataType#UINT_48BIT UINT_48BIT}</li>
+	 * <li>{@link DataType#UINT_56BIT UINT_56BIT}</li>
+	 * @param start	The starting position of the data
+	 * @param type	The type of the data to store
+	 * @param data	The data to store
+	 */
 	private void storeLongUint(int start, DataType type, long data) {
 		switch(type) {
 		case UINT_32BIT:
@@ -1033,6 +1164,12 @@ public class Save {
 		}
 	}
 	
+	/**
+	 * Parses a boolean string
+	 * @param s	The string to parse
+	 * @return	true if the string equals, ignoring case, "true" and false if the string equals, ignoring case, "false"
+	 * @throws DataFormatException	If the string does not match either of the return criteria
+	 */
 	private static boolean parseBoolean(String s) throws DataFormatException {
 		if(s.equalsIgnoreCase("true")) {
 			return true;

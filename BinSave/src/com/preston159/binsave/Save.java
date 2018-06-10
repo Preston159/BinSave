@@ -177,7 +177,13 @@ public class Save {
 	
 	/**
 	 * <p>Gets a signed integer from the file with the specified name</p>
-	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR {@link DataType#INT_32BIT INT_32BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#INT_8BIT INT_8BIT}</li>
+	 * <li>{@link DataType#INT_16BIT INT_16BIT}</li>
+	 * <li>{@link DataType#INT_24BIT INT_24BIT}</li>
+	 * <li>{@link DataType#INT_32BIT INT_32BIT}</li>
+	 * </ul>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
 	 * <p>There currently does not exist a function to get multiple integer values</p>
 	 * @param name	The name of the data
@@ -238,9 +244,17 @@ public class Save {
 	
 	/**
 	 * <p>Gets a signed integer from the file with the specified name</p>
-	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR
-	 * {@link DataType#INT_32BIT INT_32BIT} OR {@link DataType#INT_40BIT INT_40BIT} OR {@link DataType#INT_48BIT INT_48BIT} OR
-	 * {@link DataType#INT_56BIT INT_56BIT} OR {@link DataType#INT_64BIT INT_64BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#INT_8BIT INT_8BIT}</li>
+	 * <li>{@link DataType#INT_16BIT INT_16BIT}</li>
+	 * <li>{@link DataType#INT_24BIT INT_24BIT}</li>
+	 * <li>{@link DataType#INT_32BIT INT_32BIT}</li>
+	 * <li>{@link DataType#INT_40BIT INT_40BIT}</li>
+	 * <li>{@link DataType#INT_48BIT INT_48BIT}</li>
+	 * <li>{@link DataType#INT_56BIT INT_56BIT}</li>
+	 * <li>{@link DataType#INT_64BIT INT_64BIT}</li>
+	 * </ul>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
 	 * <p>There currently does not exist a function to get multiple integer values</p>
 	 * @param name	The name of the data
@@ -301,7 +315,12 @@ public class Save {
 	
 	/**
 	 * <p>Gets an unsigned integer from the file with the specified name</p>
-	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * </ul>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
 	 * <p>There currently does not exist a function to get multiple integer values</p>
 	 * @param name	The name of the data
@@ -333,9 +352,16 @@ public class Save {
 	
 	/**
 	 * <p>Gets an unsigned integer from the file with the specified name</p>
-	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}
-	 * OR {@link DataType#UINT_32BIT UINT_32BIT} OR {@link DataType#UINT_40BIT UINT_40BIT} OR {@link DataType#UINT_48BIT UINT_48BIT} OR
-	 * {@link DataType#UINT_56BIT UINT_56BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * <li>{@link DataType#UINT_32BIT UINT_32BIT}</li>
+	 * <li>{@link DataType#UINT_40BIT UINT_40BIT}</li>
+	 * <li>{@link DataType#UINT_48BIT UINT_48BIT}</li>
+	 * <li>{@link DataType#UINT_56BIT UINT_56BIT}</li>
+	 * </ul>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
 	 * <p>There currently does not exist a function to get multiple integer values</p>
 	 * @param name	The name of the data
@@ -580,8 +606,13 @@ public class Save {
 	
 	/**
 	 * <p>Stores a signed integer in the file at the specified name</p>
-	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR
-	 * {@link DataType#INT_32BIT INT_32BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#INT_8BIT INT_8BIT}</li>
+	 * <li>{@link DataType#INT_16BIT INT_16BIT}</li>
+	 * <li>{@link DataType#INT_24BIT INT_24BIT}</li>
+	 * <li>{@link DataType#INT_32BIT INT_32BIT}</li>
+	 * </ul>
 	 * @param name	The name of the data
 	 * @param data	The signed integer to store
 	 */
@@ -609,9 +640,17 @@ public class Save {
 	
 	/**
 	 * <p>Stores a signed integer in the file at the specified name</p>
-	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR
-	 * {@link DataType#INT_32BIT INT_32BIT} OR {@link DataType#INT_40BIT INT_40BIT} OR {@link DataType#INT_48BIT INT_48BIT} OR
-	 * {@link DataType#INT_56BIT INT_56BIT} OR {@link DataType#INT_64BIT INT_64BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#INT_8BIT INT_8BIT}</li>
+	 * <li>{@link DataType#INT_16BIT INT_16BIT}</li>
+	 * <li>{@link DataType#INT_24BIT INT_24BIT}</li>
+	 * <li>{@link DataType#INT_32BIT INT_32BIT}</li>
+	 * <li>{@link DataType#INT_40BIT INT_40BIT}</li>
+	 * <li>{@link DataType#INT_48BIT INT_48BIT}</li>
+	 * <li>{@link DataType#INT_56BIT INT_56BIT}</li>
+	 * <li>{@link DataType#INT_64BIT INT_64BIT}</li>
+	 * </ul>
 	 * @param name	The name of the data
 	 * @param data	The signed integer to store
 	 */
@@ -655,7 +694,12 @@ public class Save {
 	
 	/**
 	 * <p>Stores an unsigned integer in the file at the specified name</p>
-	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * </ul>
 	 * @param name	The name of the data
 	 * @param data	The unsigned integer to store
 	 */
@@ -686,9 +730,16 @@ public class Save {
 	
 	/**
 	 * <p>Stores an unsigned integer in the file at the specified name</p>
-	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}
-	 * OR {@link DataType#UINT_32BIT UINT_32BIT} OR {@link DataType#UINT_40BIT UINT_40BIT} OR {@link DataType#UINT_48BIT UINT_48BIT} OR
-	 * {@link DataType#UINT_56BIT UINT_56BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * <li>{@link DataType#UINT_32BIT UINT_32BIT}</li>
+	 * <li>{@link DataType#UINT_40BIT UINT_40BIT}</li>
+	 * <li>{@link DataType#UINT_48BIT UINT_48BIT}</li>
+	 * <li>{@link DataType#UINT_56BIT UINT_56BIT}</li>
+	 * </ul>
 	 * @param name	The name of the data
 	 * @param data	The unsigned integer to store
 	 */

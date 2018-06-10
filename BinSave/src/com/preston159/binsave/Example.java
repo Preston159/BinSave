@@ -27,9 +27,9 @@ public class Example {
 		s.storeUint("128", 128); //store the unsigned integer 128 at "128"
 		s.storeChar("Z", 'Z');	//store the character 'Z' at "Z"
 		s.storeString("ABCDEFG", "ABCDEFG"); //store the string "ABCDEFG" at "ABCDEFG"
-		s.storeString("3_umlaut_u", "üüf"); //store the string "üüf" at "3_umlaut_u"
+		s.storeString("3_umlaut_u", "\u00fc\u00fcf"); //store the string "\u00fc\u00fcf" at "3_umlaut_u"
 		String u = s.getString("3_umlaut_u"); //retrieve the string at "3_umlaut_u"
-		s.storeString("3_umlaut_u", u.replace('f', 'ü')); //replace the 'f' in the string with an 'ü'
+		s.storeString("3_umlaut_u", u.replace('f', '\u00fc')); //replace the 'f' in the string with an umlaut u
 		s.store(); //write data to file
 		System.out.println(Integer.toHexString(s.getByte("byte"))); //retrieve the byte at "byte" and print in hex
 		boolean[] bools = s.getBools("8bools"); //retrieve the boolean[] at "8bools" and print

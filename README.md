@@ -60,7 +60,9 @@ It is recommended to not reference the `Save` object constantly while the progra
 
 # API Reference
 
-[Latest](http://preston159.com/docs/BinSave/0.0.1/)
+[Latest](http://preston159.com/docs/BinSave/0.0.2/)
+
+[0.0.2](http://preston159.com/docs/BinSave/0.0.2/)
 
 [0.0.1](http://preston159.com/docs/BinSave/0.0.1/)
 

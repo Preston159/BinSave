@@ -780,12 +780,20 @@ public class Save {
 			case INT_16BIT:
 			case INT_24BIT:
 			case INT_32BIT:
-				data = String.valueOf(getInt(name));
+			case INT_40BIT:
+			case INT_48BIT:
+			case INT_56BIT:
+			case INT_64BIT:
+				data = String.valueOf(getLongInt(name));
 				break;
 			case UINT_8BIT:
 			case UINT_16BIT:
 			case UINT_24BIT:
-				data = String.valueOf(getUint(name));
+			case UINT_32BIT:
+			case UINT_40BIT:
+			case UINT_48BIT:
+			case UINT_56BIT:
+				data = String.valueOf(getLongUint(name));
 				break;
 			case CHAR_ASCII:
 			case CHAR_UNICODE:
@@ -842,6 +850,18 @@ public class Save {
 				}
 				storeInt(name, i);
 				break;
+			case INT_40BIT:
+			case INT_48BIT:
+			case INT_56BIT:
+			case INT_64BIT:
+				long l;
+				try {
+					l = Long.parseLong(p.getProperty(name, "0"));
+				} catch(NumberFormatException nfe) {
+					throw new DataFormatException("Invalid signed integer data at key \"" + name + "\"");
+				}
+				storeLongInt(name, l);
+				break;
 			case UINT_8BIT:
 			case UINT_16BIT:
 			case UINT_24BIT:
@@ -852,6 +872,18 @@ public class Save {
 					throw new DataFormatException("Invalid unsigned integer data at key \"" + name + "\"");
 				}
 				storeUint(name, u);
+				break;
+			case UINT_32BIT:
+			case UINT_40BIT:
+			case UINT_48BIT:
+			case UINT_56BIT:
+				long ul;
+				try {
+					ul = Long.parseLong(p.getProperty(name, "0"));
+				} catch(NumberFormatException nfe) {
+					throw new DataFormatException("Invalid unsigned integer data at key \"" + name + "\"");
+				}
+				storeLongUint(name, ul);
 				break;
 			case CHAR_ASCII:
 			case CHAR_UNICODE:

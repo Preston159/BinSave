@@ -44,10 +44,6 @@ It is recommended to not reference the `Save` object constantly while the progra
 
 # Future plans
 
-- Add more data types
-  - Floats
-  - Doubles
-  - Longs
 - Add save file versions to allow format changes. Currently, any expansion must be done by adding new data to the end of the file.
 
 # Release

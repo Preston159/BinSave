@@ -436,6 +436,41 @@ public class Save {
 		return out;
 	}
 	
+	/**
+	 * <p>Gets a {@code float} from the file with the specified name</p>
+	 * <p>Data must be of type {@link DataType#FLOAT FLOAT}</p>
+	 * @param name	The name of the data
+	 * @return		The {@code float} stored
+	 */
+	public float getFloat(String name) {
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1 || type != DataType.FLOAT) {
+			throw new InvalidSearchException();
+		}
+		ByteBuffer buffer = ByteBuffer.allocate(4);
+		buffer.put(new byte[] { bytes[start], bytes[start + 1], bytes[start + 2], bytes[start + 3] });
+		return buffer.getFloat(0);
+	}
+	
+	/**
+	 * <p>Gets a {@code double} from the file with the specified name</p>
+	 * <p>Data must be of type {@link DataType#DOUBLE DOUBLE}</p>
+	 * @param name	The name of the data
+	 * @return		The {@code double} stored
+	 */
+	public double getDouble(String name) {
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1 || type != DataType.DOUBLE) {
+			throw new InvalidSearchException();
+		}
+		ByteBuffer buffer = ByteBuffer.allocate(8);
+		buffer.put(new byte[] { bytes[start], bytes[start + 1], bytes[start + 2], bytes[start + 3],
+				bytes[start + 4], bytes[start + 5], bytes[start + 6], bytes[start + 7] });
+		return buffer.getDouble(0);
+	}
+	
 	
 	/**
 	 * <p>Stores a {@code byte} in the file at the specified name</p>
@@ -752,6 +787,40 @@ public class Save {
 	}
 	
 	/**
+	 * <p>Stores a {@code float} in the file at the specified name</p>
+	 * <p>Data must be of type {@link DataType#FLOAT FLOAT}</p>
+	 * @param name	The name of the data
+	 * @param data	The {@code float} to store
+	 */
+	public void storeFloat(String name, float data) {
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1 || type != DataType.FLOAT) {
+			throw new InvalidSearchException();
+		}
+		ByteBuffer buffer = ByteBuffer.allocate(4);
+		buffer.putFloat(data);
+		storeBytes(start, buffer.array(), 4);
+	}
+	
+	/**
+	 * <p>Stores a {@code double} in the file at the specified name</p>
+	 * <p>Data must be of type {@link DataType#DOUBLE DOUBLE}</p>
+	 * @param name	The name of the data
+	 * @param data	The {@code double} to store
+	 */
+	public void storeDouble(String name, double data) {
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1 || type != DataType.DOUBLE) {
+			throw new InvalidSearchException();
+		}
+		ByteBuffer buffer = ByteBuffer.allocate(8);
+		buffer.putDouble(data);
+		storeBytes(start, buffer.array(), 8);
+	}
+	
+	/**
 	 * Convert this {@code Save} object to a {@code Properties} object
 	 * @return	The {@code Properties} object
 	 */
@@ -798,6 +867,13 @@ public class Save {
 			case CHAR_ASCII:
 			case CHAR_UNICODE:
 				data = getString(name);
+				break;
+			case FLOAT:
+				data = String.valueOf(getFloat(name));
+				break;
+			case DOUBLE:
+				data = String.valueOf(getDouble(name));
+				break;
 			}
 			p.setProperty(name, data);
 		}
@@ -888,6 +964,20 @@ public class Save {
 			case CHAR_ASCII:
 			case CHAR_UNICODE:
 				storeString(name, p.getProperty(name, "\0"));
+				break;
+			case FLOAT:
+				try {
+					storeFloat(name, Float.valueOf(p.getProperty(name, "0")));
+				} catch(NumberFormatException nfe) {
+					throw new DataFormatException("Invalid float data at key \"" + name + "\"");
+				}
+				break;
+			case DOUBLE:
+				try {
+					storeDouble(name, Double.valueOf(p.getProperty(name, "0")));
+				} catch(NumberFormatException nfe) {
+					throw new DataFormatException("Invalid double data at key \"" + name + "\"");
+				}
 			}
 		}
 	}

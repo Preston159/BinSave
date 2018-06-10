@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Properties;
 import java.util.zip.DataFormatException;
 
@@ -189,28 +190,113 @@ public class Save {
 				&& type != DataType.INT_24BIT && type != DataType.INT_32BIT)) {
 			throw new InvalidSearchException();
 		}
-		int out = 0;
+		return getInt(start, type);
+	}
+	
+	private int getInt(int start, DataType type) {
+		ByteBuffer buffer = ByteBuffer.allocate(4);
 		switch(type) {
 		case INT_32BIT:
-			out += bytes[start + 3] << 24 & 0xff;
-			out += bytes[start + 2] << 16 & 0xff;
-			out += bytes[start + 1] << 8 & 0xff;
-			out += bytes[start] & 0xff;
+			buffer.put(0, bytes[start + 3]);
+			buffer.put(1, bytes[start + 2]);
+			buffer.put(2, bytes[start + 1]);
+			buffer.put(3, bytes[start]);
 			break;
 		case INT_24BIT:
-			out += bytes[start + 2] << 16;
-			out += bytes[start + 1] << 8 & 0xff;
-			out += bytes[start] & 0xff;
+			if((bytes[start + 2] & 0b10000000) == 0b10000000) {
+				buffer.put(0, (byte) 0xff);
+				buffer.put(1, (byte) (bytes[start + 2]));
+			} else {
+				buffer.put(1, bytes[start + 2]);
+			}
+			buffer.put(2, bytes[start + 1]);
+			buffer.put(3, bytes[start]);
 			break;
 		case INT_16BIT:
-			out += bytes[start + 1] << 8;
-			out += bytes[start] & 0xff;
+			if((bytes[start + 1] & 0b10000000) == 0b10000000) {
+				buffer.put(0, (byte) 0xff);
+				buffer.put(1, (byte) 0xff);
+				buffer.put(2, (byte) (bytes[start + 1]));
+			} else {
+				buffer.put(2, bytes[start + 1]);
+			}
+			buffer.put(3, bytes[start]);
 			break;
 		default:
-			out += bytes[start];
+			if((bytes[start] & 0b10000000) == 0b10000000) {
+				buffer.put(0, (byte) 0xff);
+				buffer.put(1, (byte) 0xff);
+				buffer.put(2, (byte) 0xff);
+				buffer.put(3, (byte) (bytes[start]));
+			} else {
+				buffer.put(3, bytes[start]);
+			}
 			break;
 		}
-		return out;
+		return buffer.getInt();
+	}
+	
+	/**
+	 * <p>Gets a signed integer from the file with the specified name</p>
+	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR
+	 * {@link DataType#INT_32BIT INT_32BIT} OR {@link DataType#INT_40BIT INT_40BIT} OR {@link DataType#INT_48BIT INT_48BIT} OR
+	 * {@link DataType#INT_56BIT INT_56BIT} OR {@link DataType#INT_64BIT INT_64BIT}</p>
+	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
+	 * <p>There currently does not exist a function to get multiple integer values</p>
+	 * @param name	The name of the data
+	 * @return		The signed integer stored
+	 */
+	public long getLongInt(String name) {
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1 || (type != DataType.INT_8BIT && type != DataType.INT_16BIT && type != DataType.INT_24BIT && type != DataType.INT_32BIT &&
+				type != DataType.INT_40BIT && type != DataType.INT_48BIT && type != DataType.INT_56BIT && type != DataType.INT_64BIT)) {
+			throw new InvalidSearchException();
+		}
+		ByteBuffer buffer = ByteBuffer.allocate(8);
+		ByteBuffer sb = ByteBuffer.allocate(4);
+		int si = getInt(start, DataType.INT_32BIT);
+		sb.putInt(si);
+		byte[] sa = sb.array();
+		buffer.put(new byte[] { (byte) 0, (byte) 0, (byte) 0, (byte) 0, sa[0], sa[1], sa[2], sa[3] });
+		switch(type) {
+		case INT_32BIT:
+		case INT_24BIT:
+		case INT_16BIT:
+		case INT_8BIT:
+			break;
+		case INT_64BIT:
+			buffer.put(0, bytes[start + 7]);
+			buffer.put(1, bytes[start + 6]);
+			buffer.put(2, bytes[start + 5]);
+			buffer.put(3, bytes[start + 4]);
+			break;
+		case INT_56BIT:
+			if((bytes[start + 6] & 0b10000000) == 0b10000000) {
+				buffer.put(0, (byte) 0xff);
+			}
+			buffer.put(1, bytes[start + 6]);
+			buffer.put(2, bytes[start + 5]);
+			buffer.put(3, bytes[start + 4]);
+			break;
+		case INT_48BIT:
+			if((bytes[start + 5] & 0b10000000) == 0b10000000) {
+				buffer.put(0, (byte) 0xff);
+				buffer.put(1, (byte) 0xff);
+			}
+			buffer.put(2, bytes[start + 5]);
+			buffer.put(3, bytes[start + 4]);
+			break;
+		default:
+			if((bytes[start + 4] & 0b10000000) == 0b10000000) {
+				buffer.put(0, (byte) 0xff);
+				buffer.put(1, (byte) 0xff);
+				buffer.put(2, (byte) 0xff);
+			}
+			buffer.put(3, bytes[start + 4]);
+			break;
+		}
+		return buffer.getLong(0);
 	}
 	
 	/**
@@ -232,17 +318,59 @@ public class Save {
 	}
 	
 	private int getUint(int start, DataType type) {
-		int out = 0;
+		ByteBuffer buffer = ByteBuffer.allocate(4);
 		switch(type) {
 		case UINT_24BIT:
-			out += bytes[start + 2] << 16 & 0xff;
+			buffer.put(1, bytes[start + 2]);
 		case UINT_16BIT:
-			out += bytes[start + 1] << 8 & 0xff;
+			buffer.put(2, bytes[start + 1]);
 		default:
-			out += bytes[start] & 0xff;
+			buffer.put(3, bytes[start]);
 			break;
 		}
-		return out;
+		return buffer.getInt();
+	}
+	
+	/**
+	 * <p>Gets an unsigned integer from the file with the specified name</p>
+	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}
+	 * OR {@link DataType#UINT_32BIT UINT_32BIT} OR {@link DataType#UINT_40BIT UINT_40BIT} OR {@link DataType#UINT_48BIT UINT_48BIT} OR
+	 * {@link DataType#UINT_56BIT UINT_56BIT}</p>
+	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
+	 * <p>There currently does not exist a function to get multiple integer values</p>
+	 * @param name	The name of the data
+	 * @return		The unsigned integer stored
+	 */
+	public long getLongUint(String name) {
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1 || (type != DataType.UINT_8BIT && type != DataType.UINT_16BIT && type != DataType.UINT_24BIT && type != DataType.UINT_32BIT &&
+				type != DataType.UINT_40BIT && type != DataType.UINT_48BIT && type != DataType.UINT_56BIT)) {
+			throw new InvalidSearchException();
+		}
+		return getLongUint(start, type);
+	}
+	
+	private long getLongUint(int start, DataType type) {
+		ByteBuffer buffer = ByteBuffer.allocate(8);
+		switch(type) {
+		case UINT_56BIT:
+			buffer.put(1, bytes[start + 6]);
+		case UINT_48BIT:
+			buffer.put(2, bytes[start + 5]);
+		case UINT_40BIT:
+			buffer.put(3, bytes[start + 4]);
+		case UINT_32BIT:
+			buffer.put(4, bytes[start + 3]);
+		case UINT_24BIT:
+			buffer.put(5, bytes[start + 2]);
+		case UINT_16BIT:
+			buffer.put(6, bytes[start + 1]);
+		default:
+			buffer.put(7, bytes[start]);
+			break;
+		}
+		return buffer.getLong();
 	}
 	
 	/**
@@ -417,7 +545,8 @@ public class Save {
 	
 	/**
 	 * <p>Stores a signed integer in the file at the specified name</p>
-	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR {@link DataType#INT_32BIT INT_32BIT}</p>
+	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR
+	 * {@link DataType#INT_32BIT INT_32BIT}</p>
 	 * @param name	The name of the data
 	 * @param data	The signed integer to store
 	 */
@@ -441,6 +570,52 @@ public class Save {
 			return;
 		}
 		storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff), (byte) (data >> 24 & 0xff) }, 4);
+	}
+	
+	/**
+	 * <p>Stores a signed integer in the file at the specified name</p>
+	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR
+	 * {@link DataType#INT_32BIT INT_32BIT} OR {@link DataType#INT_40BIT INT_40BIT} OR {@link DataType#INT_48BIT INT_48BIT} OR
+	 * {@link DataType#INT_56BIT INT_56BIT} OR {@link DataType#INT_64BIT INT_64BIT}</p>
+	 * @param name	The name of the data
+	 * @param data	The signed integer to store
+	 */
+	public void storeLongInt(String name, long data) {
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1 || (type != DataType.INT_8BIT && type != DataType.INT_16BIT && type != DataType.INT_24BIT && type != DataType.INT_32BIT &&
+				type != DataType.INT_40BIT && type != DataType.INT_48BIT && type != DataType.INT_56BIT && type != DataType.INT_64BIT)) {
+			throw new InvalidSearchException();
+		}
+		switch(type) {
+		case INT_8BIT:
+			storeBytes(start, new byte[] { (byte) (data & 0xff) }, 1);
+			return;
+		case INT_16BIT:
+			storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff) }, 2);
+			return;
+		case INT_24BIT:
+			storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff) }, 3);
+			return;
+		case INT_32BIT:
+			storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff), (byte) (data >> 24 & 0xff) }, 4);
+			return;
+		case INT_40BIT:
+			storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff), (byte) (data >> 24 & 0xff),
+					(byte) (data >> 32 & 0xff) }, 5);
+			return;
+		case INT_48BIT:
+			storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff), (byte) (data >> 24 & 0xff),
+					(byte) (data >> 32 & 0xff), (byte) (data >> 40 & 0xff) }, 6);
+			return;
+		case INT_56BIT:
+			storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff), (byte) (data >> 24 & 0xff),
+					(byte) (data >> 32 & 0xff), (byte) (data >> 40 & 0xff), (byte) (data >> 48 & 0xff) }, 7);
+			return;
+		default:
+			storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff), (byte) (data >> 24 & 0xff),
+					(byte) (data >> 32 & 0xff), (byte) (data >> 40 & 0xff), (byte) (data >> 48 & 0xff), (byte) (data >> 56 & 0xff) }, 8);
+		}
 	}
 	
 	/**
@@ -472,6 +647,52 @@ public class Save {
 			return;
 		}
 		storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff) }, 3);
+	}
+	
+	/**
+	 * <p>Stores an unsigned integer in the file at the specified name</p>
+	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}
+	 * OR {@link DataType#UINT_32BIT UINT_32BIT} OR {@link DataType#UINT_40BIT UINT_40BIT} OR {@link DataType#UINT_48BIT UINT_48BIT} OR
+	 * {@link DataType#UINT_56BIT UINT_56BIT}</p>
+	 * @param name	The name of the data
+	 * @param data	The unsigned integer to store
+	 */
+	public void storeLongUint(String name, long data) {
+		if(data < 0) {
+			throw new IllegalArgumentException("Can't store negative number in a UINT");
+		}
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1) {
+			throw new InvalidSearchException();
+		}
+		if(type == DataType.UINT_8BIT || type == DataType.UINT_16BIT || type == DataType.UINT_24BIT) {
+			storeUint(start, type, (int) data);
+		} else if(type == DataType.UINT_32BIT || type == DataType.UINT_40BIT || type == DataType.UINT_48BIT || type == DataType.UINT_56BIT) {
+			storeLongUint(start, type, data);
+		} else {
+			throw new InvalidSearchException();
+		}
+	}
+	
+	private void storeLongUint(int start, DataType type, long data) {
+		switch(type) {
+		case UINT_32BIT:
+			storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff), (byte) (data >> 24 & 0xff) }, 4);
+			break;
+		case UINT_40BIT:
+			storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff), (byte) (data >> 24 & 0xff),
+					(byte) (data >> 32 & 0xff) }, 5);
+			break;
+		case UINT_48BIT:
+			storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff), (byte) (data >> 24 & 0xff),
+					(byte) (data >> 32 & 0xff), (byte) (data >> 40 & 0xff) }, 6);
+			break;
+		default:
+			storeBytes(start, new byte[] { (byte) (data & 0xff), (byte) (data >> 8 & 0xff), (byte) (data >> 16 & 0xff), (byte) (data >> 24 & 0xff),
+					(byte) (data >> 32 & 0xff), (byte) (data >> 40 & 0xff), (byte) (data >> 48 & 0xff) }, 7);
+			break;
+		}
 	}
 	
 	/**

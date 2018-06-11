@@ -135,7 +135,17 @@ public enum DataType {
 	 * <p><strong>Length:</strong> 2 bytes</p>
 	 * <p><strong>Stores:</strong> a Unicode character</p>
 	 */
-	CHAR_UNICODE(2)
+	CHAR_UNICODE(2),
+	/**
+	 * <p><strong>Length:</strong> 4 bytes</p>
+	 * <p><strong>Stores:</strong> a floating-point number</p>
+	 */
+	FLOAT(4),
+	/**
+	 * <p><strong>Length:</strong> 8 bytes</p>
+	 * <p><strong>Stores:</strong> a double-precision floating-point number</p>
+	 */
+	DOUBLE(8)
 	
 	;
 	

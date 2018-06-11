@@ -153,6 +153,13 @@ public class Save {
 		return getShortBools(start, len);
 	}
 	
+	/**
+	 * <p>Gets a {@code boolean[]} from the file with the specified starting position</p>
+	 * <p>Reads data as type {@link DataType#BOOLS_8 BOOLS_8}, but ignores actual type</p>
+	 * @param start	The starting position of the data
+	 * @param len	The length of the data in bytes
+	 * @return		The {@code boolean[]} stored
+	 */
 	private boolean[] getLongBools(int start, int len) {
 		boolean[] out = new boolean[len];
 		for(int i = 0;i < len;i++) {
@@ -162,6 +169,13 @@ public class Save {
 		return out;
 	}
 	
+	/**
+	 * <p>Gets a {@code boolean[]} from the file with the specified starting position</p>
+	 * <p>Reads data as type {@link DataType#BOOL BOOL}, but ignores actual type</p>
+	 * @param start	The starting position of the data
+	 * @param len	The length of the data in bytes
+	 * @return		The {@code boolean[]} stored
+	 */
 	private boolean[] getShortBools(int start, int len) {
 		boolean[] out = new boolean[len * 8];
 		for(int i = 0;i < len;i++) {
@@ -177,7 +191,13 @@ public class Save {
 	
 	/**
 	 * <p>Gets a signed integer from the file with the specified name</p>
-	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR {@link DataType#INT_32BIT INT_32BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#INT_8BIT INT_8BIT}</li>
+	 * <li>{@link DataType#INT_16BIT INT_16BIT}</li>
+	 * <li>{@link DataType#INT_24BIT INT_24BIT}</li>
+	 * <li>{@link DataType#INT_32BIT INT_32BIT}</li>
+	 * </ul>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
 	 * <p>There currently does not exist a function to get multiple integer values</p>
 	 * @param name	The name of the data
@@ -193,6 +213,24 @@ public class Save {
 		return getInt(start, type);
 	}
 	
+	/**
+	 * <p>Gets a signed integer from the file with the specified starting position</p>
+	 * <p>Reads the data as the given type, but ignores the actual type</p>
+	 * <p>The given type must be one of the following:</p>
+	 * <ul>
+	 * <li>{@link DataType#INT_8BIT INT_8BIT}</li>
+	 * <li>{@link DataType#INT_16BIT INT_16BIT}</li>
+	 * <li>{@link DataType#INT_24BIT INT_24BIT}</li>
+	 * <li>{@link DataType#INT_32BIT INT_32BIT}</li>
+	 * <li>{@link DataType#INT_40BIT INT_40BIT}</li>
+	 * <li>{@link DataType#INT_48BIT INT_48BIT}</li>
+	 * <li>{@link DataType#INT_56BIT INT_56BIT}</li>
+	 * <li>{@link DataType#INT_64BIT INT_64BIT}</li>
+	 * </ul>
+	 * @param start	The starting position of the data
+	 * @param type	The type of the data
+	 * @return		The signed integer stored
+	 */
 	private int getInt(int start, DataType type) {
 		ByteBuffer buffer = ByteBuffer.allocate(4);
 		switch(type) {
@@ -238,9 +276,17 @@ public class Save {
 	
 	/**
 	 * <p>Gets a signed integer from the file with the specified name</p>
-	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR
-	 * {@link DataType#INT_32BIT INT_32BIT} OR {@link DataType#INT_40BIT INT_40BIT} OR {@link DataType#INT_48BIT INT_48BIT} OR
-	 * {@link DataType#INT_56BIT INT_56BIT} OR {@link DataType#INT_64BIT INT_64BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#INT_8BIT INT_8BIT}</li>
+	 * <li>{@link DataType#INT_16BIT INT_16BIT}</li>
+	 * <li>{@link DataType#INT_24BIT INT_24BIT}</li>
+	 * <li>{@link DataType#INT_32BIT INT_32BIT}</li>
+	 * <li>{@link DataType#INT_40BIT INT_40BIT}</li>
+	 * <li>{@link DataType#INT_48BIT INT_48BIT}</li>
+	 * <li>{@link DataType#INT_56BIT INT_56BIT}</li>
+	 * <li>{@link DataType#INT_64BIT INT_64BIT}</li>
+	 * </ul>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
 	 * <p>There currently does not exist a function to get multiple integer values</p>
 	 * @param name	The name of the data
@@ -301,7 +347,12 @@ public class Save {
 	
 	/**
 	 * <p>Gets an unsigned integer from the file with the specified name</p>
-	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * </ul>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
 	 * <p>There currently does not exist a function to get multiple integer values</p>
 	 * @param name	The name of the data
@@ -317,6 +368,19 @@ public class Save {
 		return getUint(start, type);
 	}
 	
+	/**
+	 * <p>Gets an unsigned integer from the file at the specified starting position</p>
+	 * <p>Reads the data as the given type, but ignores the actual type</p>
+	 * <p>The given type must be one of the following:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * </ul>
+	 * @param start	The starting position of the data
+	 * @param type	The type of the data
+	 * @return		The unsigned integer stored
+	 */
 	private int getUint(int start, DataType type) {
 		ByteBuffer buffer = ByteBuffer.allocate(4);
 		switch(type) {
@@ -333,9 +397,16 @@ public class Save {
 	
 	/**
 	 * <p>Gets an unsigned integer from the file with the specified name</p>
-	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}
-	 * OR {@link DataType#UINT_32BIT UINT_32BIT} OR {@link DataType#UINT_40BIT UINT_40BIT} OR {@link DataType#UINT_48BIT UINT_48BIT} OR
-	 * {@link DataType#UINT_56BIT UINT_56BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * <li>{@link DataType#UINT_32BIT UINT_32BIT}</li>
+	 * <li>{@link DataType#UINT_40BIT UINT_40BIT}</li>
+	 * <li>{@link DataType#UINT_48BIT UINT_48BIT}</li>
+	 * <li>{@link DataType#UINT_56BIT UINT_56BIT}</li>
+	 * </ul>
 	 * <p>If the length of the data stored at the specified name is larger than 1, returns only the first value</p>
 	 * <p>There currently does not exist a function to get multiple integer values</p>
 	 * @param name	The name of the data
@@ -351,6 +422,23 @@ public class Save {
 		return getLongUint(start, type);
 	}
 	
+	/**
+	 * <p>Gets an unsigned integer from the file at the specified starting position</p>
+	 * <p>Reads the data as the given type, but ignores the actual type</p>
+	 * <p>The given type must be one of the following:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * <li>{@link DataType#UINT_32BIT UINT_32BIT}</li>
+	 * <li>{@link DataType#UINT_40BIT UINT_40BIT}</li>
+	 * <li>{@link DataType#UINT_48BIT UINT_48BIT}</li>
+	 * <li>{@link DataType#UINT_56BIT UINT_56BIT}</li>
+	 * </ul>
+	 * @param start	The starting position of the data
+	 * @param type	The type of the data
+	 * @return		The unsigned integer stored
+	 */
 	private long getLongUint(int start, DataType type) {
 		ByteBuffer buffer = ByteBuffer.allocate(8);
 		switch(type) {
@@ -393,6 +481,12 @@ public class Save {
 		return getUnicodeChar(start);
 	}
 	
+	/**
+	 * <p>Gets a {@code char} from the file at the specified position</p>
+	 * <p>Reads the data as type {@link DataType#CHAR_UNICODE CHAR_UNICODE}, but ignores the actual type</p>
+	 * @param start	The starting position of the data
+	 * @return		The {@code char} stored
+	 */
 	private char getUnicodeChar(int start) {
 		int out = 0;
 		out += bytes[start + 1] << 8 & 0xff;
@@ -419,6 +513,13 @@ public class Save {
 		return getUnicodeString(start, len);
 	}
 	
+	/**
+	 * <p>Gets a {@code String} from the file with the specified name</p>
+	 * <p>Reads data as type {@link DataType#CHAR_ASCII CHAR_ASCII}, but ignores the actual type</p>
+	 * @param start	The starting position of the data
+	 * @param len	The length of the data in bytes
+	 * @return		The {@code String} stored
+	 */
 	private String getASCIIString(int start, int len) {
 		String out = "";
 		for(int i = 0;i < len;i++) {
@@ -428,12 +529,54 @@ public class Save {
 		return out;
 	}
 	
+	/**
+	 * <p>Gets a {@code String} from the file with the specified name</p>
+	 * <p>Reads data as type {@link DataType#CHAR_UNICODE CHAR_UNICODE}, but ignores the actual type</p>
+	 * @param start	The starting position of the data
+	 * @param len	The length of the data in bytes
+	 * @return		The {@code String} stored
+	 */
 	private String getUnicodeString(int start, int len) {
 		String out = "";
 		for(int i = 0;i < len;i += 2) {
 			out += (char) (getUint(start + i, DataType.UINT_16BIT));
 		}
 		return out;
+	}
+	
+	/**
+	 * <p>Gets a {@code float} from the file with the specified name</p>
+	 * <p>Data must be of type {@link DataType#FLOAT FLOAT}</p>
+	 * @param name	The name of the data
+	 * @return		The {@code float} stored
+	 */
+	public float getFloat(String name) {
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1 || type != DataType.FLOAT) {
+			throw new InvalidSearchException();
+		}
+		ByteBuffer buffer = ByteBuffer.allocate(4);
+		buffer.put(new byte[] { bytes[start], bytes[start + 1], bytes[start + 2], bytes[start + 3] });
+		return buffer.getFloat(0);
+	}
+	
+	/**
+	 * <p>Gets a {@code double} from the file with the specified name</p>
+	 * <p>Data must be of type {@link DataType#DOUBLE DOUBLE}</p>
+	 * @param name	The name of the data
+	 * @return		The {@code double} stored
+	 */
+	public double getDouble(String name) {
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1 || type != DataType.DOUBLE) {
+			throw new InvalidSearchException();
+		}
+		ByteBuffer buffer = ByteBuffer.allocate(8);
+		buffer.put(new byte[] { bytes[start], bytes[start + 1], bytes[start + 2], bytes[start + 3],
+				bytes[start + 4], bytes[start + 5], bytes[start + 6], bytes[start + 7] });
+		return buffer.getDouble(0);
 	}
 	
 	
@@ -472,6 +615,13 @@ public class Save {
 		}
 	}
 	
+	/**
+	 * <p>Stores a {@code byte[]} in the file at the specified name</p>
+	 * <p>Ignores the type of the data and stores raw bytes</p>
+	 * @param start	The starting position of the data
+	 * @param data	The data to store
+	 * @param dlen	The length of the field in which the data will be stored
+	 */
 	private void storeBytes(int start, byte[] data, int dlen) {
 		if(data.length > dlen) {
 			System.out.println("WARNING: STORING DATA AT BYTE INDEX " + start + " WHICH WILL BE TRUNCATED");
@@ -516,6 +666,13 @@ public class Save {
 		}
 	}
 	
+	/**
+	 * <p>Stores a {@code boolean[]} in the file at the specified position</p>
+	 * <p>Stores the data as type {@link DataType#BOOLS_8}, but ignores the actual type</p>
+	 * @param start	The starting position of the data
+	 * @param data	The data to be stored
+	 * @param dlen	The length of the field in which the data will be stored
+	 */
 	private void storeLongBools(int start, boolean[] data, int dlen) {
 		int len = data.length;
 		byte[] store = new byte[len];
@@ -525,6 +682,13 @@ public class Save {
 		storeBytes(start, store, dlen);
 	}
 	
+	/**
+	 * <p>Stores a {@code boolean[]} in the file at the specified position</p>
+	 * <p>Stores the data as type {@link DataType#BOOL}, but ignores the actual type</p>
+	 * @param start	The starting position of the data
+	 * @param data	The data to be stored
+	 * @param dlen	The length of the field in which the data will be stored
+	 */
 	private void storeShortBools(int start, boolean[] data, int dlen) {
 		if(data.length % 8 != 0) {
 			throw new IllegalArgumentException("Number of booleans for type BOOLS_8 must be a multiple of 8");
@@ -545,8 +709,13 @@ public class Save {
 	
 	/**
 	 * <p>Stores a signed integer in the file at the specified name</p>
-	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR
-	 * {@link DataType#INT_32BIT INT_32BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#INT_8BIT INT_8BIT}</li>
+	 * <li>{@link DataType#INT_16BIT INT_16BIT}</li>
+	 * <li>{@link DataType#INT_24BIT INT_24BIT}</li>
+	 * <li>{@link DataType#INT_32BIT INT_32BIT}</li>
+	 * </ul>
 	 * @param name	The name of the data
 	 * @param data	The signed integer to store
 	 */
@@ -574,9 +743,17 @@ public class Save {
 	
 	/**
 	 * <p>Stores a signed integer in the file at the specified name</p>
-	 * <p>Data must be of type {@link DataType#INT_8BIT INT_8BIT} OR {@link DataType#INT_16BIT INT_16BIT} OR {@link DataType#INT_24BIT INT_24BIT} OR
-	 * {@link DataType#INT_32BIT INT_32BIT} OR {@link DataType#INT_40BIT INT_40BIT} OR {@link DataType#INT_48BIT INT_48BIT} OR
-	 * {@link DataType#INT_56BIT INT_56BIT} OR {@link DataType#INT_64BIT INT_64BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#INT_8BIT INT_8BIT}</li>
+	 * <li>{@link DataType#INT_16BIT INT_16BIT}</li>
+	 * <li>{@link DataType#INT_24BIT INT_24BIT}</li>
+	 * <li>{@link DataType#INT_32BIT INT_32BIT}</li>
+	 * <li>{@link DataType#INT_40BIT INT_40BIT}</li>
+	 * <li>{@link DataType#INT_48BIT INT_48BIT}</li>
+	 * <li>{@link DataType#INT_56BIT INT_56BIT}</li>
+	 * <li>{@link DataType#INT_64BIT INT_64BIT}</li>
+	 * </ul>
 	 * @param name	The name of the data
 	 * @param data	The signed integer to store
 	 */
@@ -620,7 +797,12 @@ public class Save {
 	
 	/**
 	 * <p>Stores an unsigned integer in the file at the specified name</p>
-	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * </ul>
 	 * @param name	The name of the data
 	 * @param data	The unsigned integer to store
 	 */
@@ -637,6 +819,18 @@ public class Save {
 		storeUint(start, type, data);
 	}
 	
+	/**
+	 * <p>Stores an unsigned integer in the file at the specified position</p>
+	 * <p>Stores data as the given type, but ignores the actual type</p>
+	 * <p>The given type must be one of the following:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * @param start	The starting position of the data
+	 * @param type	The type of the data to store
+	 * @param data	The data to store
+	 */
 	private void storeUint(int start, DataType type, int data) {
 		if(type == DataType.UINT_8BIT) {
 			storeBytes(start, new byte[] { (byte) (data & 0xff) }, 1);
@@ -651,9 +845,16 @@ public class Save {
 	
 	/**
 	 * <p>Stores an unsigned integer in the file at the specified name</p>
-	 * <p>Data must be of type {@link DataType#UINT_8BIT UINT_8BIT} OR {@link DataType#UINT_16BIT UINT_16BIT} OR {@link DataType#UINT_24BIT UINT_24BIT}
-	 * OR {@link DataType#UINT_32BIT UINT_32BIT} OR {@link DataType#UINT_40BIT UINT_40BIT} OR {@link DataType#UINT_48BIT UINT_48BIT} OR
-	 * {@link DataType#UINT_56BIT UINT_56BIT}</p>
+	 * <p>Data must be of one of the following types:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * <li>{@link DataType#UINT_32BIT UINT_32BIT}</li>
+	 * <li>{@link DataType#UINT_40BIT UINT_40BIT}</li>
+	 * <li>{@link DataType#UINT_48BIT UINT_48BIT}</li>
+	 * <li>{@link DataType#UINT_56BIT UINT_56BIT}</li>
+	 * </ul>
 	 * @param name	The name of the data
 	 * @param data	The unsigned integer to store
 	 */
@@ -675,6 +876,22 @@ public class Save {
 		}
 	}
 	
+	/**
+	 * <p>Stores an unsigned integer in the file at the specified position</p>
+	 * <p>Stores data as the given type, but ignores the actual type</p>
+	 * <p>The given type must be one of the following:</p>
+	 * <ul>
+	 * <li>{@link DataType#UINT_8BIT UINT_8BIT}</li>
+	 * <li>{@link DataType#UINT_16BIT UINT_16BIT}</li>
+	 * <li>{@link DataType#UINT_24BIT UINT_24BIT}</li>
+	 * <li>{@link DataType#UINT_32BIT UINT_32BIT}</li>
+	 * <li>{@link DataType#UINT_40BIT UINT_40BIT}</li>
+	 * <li>{@link DataType#UINT_48BIT UINT_48BIT}</li>
+	 * <li>{@link DataType#UINT_56BIT UINT_56BIT}</li>
+	 * @param start	The starting position of the data
+	 * @param type	The type of the data to store
+	 * @param data	The data to store
+	 */
 	private void storeLongUint(int start, DataType type, long data) {
 		switch(type) {
 		case UINT_32BIT:
@@ -752,6 +969,40 @@ public class Save {
 	}
 	
 	/**
+	 * <p>Stores a {@code float} in the file at the specified name</p>
+	 * <p>Data must be of type {@link DataType#FLOAT FLOAT}</p>
+	 * @param name	The name of the data
+	 * @param data	The {@code float} to store
+	 */
+	public void storeFloat(String name, float data) {
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1 || type != DataType.FLOAT) {
+			throw new InvalidSearchException();
+		}
+		ByteBuffer buffer = ByteBuffer.allocate(4);
+		buffer.putFloat(data);
+		storeBytes(start, buffer.array(), 4);
+	}
+	
+	/**
+	 * <p>Stores a {@code double} in the file at the specified name</p>
+	 * <p>Data must be of type {@link DataType#DOUBLE DOUBLE}</p>
+	 * @param name	The name of the data
+	 * @param data	The {@code double} to store
+	 */
+	public void storeDouble(String name, double data) {
+		int start = sd.getStartOf(name);
+		DataType type = sd.getTypeOf(name);
+		if(start == -1 || type != DataType.DOUBLE) {
+			throw new InvalidSearchException();
+		}
+		ByteBuffer buffer = ByteBuffer.allocate(8);
+		buffer.putDouble(data);
+		storeBytes(start, buffer.array(), 8);
+	}
+	
+	/**
 	 * Convert this {@code Save} object to a {@code Properties} object
 	 * @return	The {@code Properties} object
 	 */
@@ -798,6 +1049,13 @@ public class Save {
 			case CHAR_ASCII:
 			case CHAR_UNICODE:
 				data = getString(name);
+				break;
+			case FLOAT:
+				data = String.valueOf(getFloat(name));
+				break;
+			case DOUBLE:
+				data = String.valueOf(getDouble(name));
+				break;
 			}
 			p.setProperty(name, data);
 		}
@@ -888,10 +1146,30 @@ public class Save {
 			case CHAR_ASCII:
 			case CHAR_UNICODE:
 				storeString(name, p.getProperty(name, "\0"));
+				break;
+			case FLOAT:
+				try {
+					storeFloat(name, Float.valueOf(p.getProperty(name, "0")));
+				} catch(NumberFormatException nfe) {
+					throw new DataFormatException("Invalid float data at key \"" + name + "\"");
+				}
+				break;
+			case DOUBLE:
+				try {
+					storeDouble(name, Double.valueOf(p.getProperty(name, "0")));
+				} catch(NumberFormatException nfe) {
+					throw new DataFormatException("Invalid double data at key \"" + name + "\"");
+				}
 			}
 		}
 	}
 	
+	/**
+	 * Parses a boolean string
+	 * @param s	The string to parse
+	 * @return	true if the string equals, ignoring case, "true" and false if the string equals, ignoring case, "false"
+	 * @throws DataFormatException	If the string does not match either of the return criteria
+	 */
 	private static boolean parseBoolean(String s) throws DataFormatException {
 		if(s.equalsIgnoreCase("true")) {
 			return true;

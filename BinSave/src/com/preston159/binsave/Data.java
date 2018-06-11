@@ -23,6 +23,15 @@ public class Data {
 	}
 	
 	/**
+	 * Construct a {@code Data} object with a length of 1
+	 * @param name	The name of the datapoint
+	 * @param type	The type of the datapoint
+	 */
+	public Data(String name, DataType type) {
+		this(name, type, 1);
+	}
+	
+	/**
 	 * Get the name of the datapoint
 	 * @return	The name of the datapoint
 	 */

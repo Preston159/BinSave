@@ -44,15 +44,13 @@ It is recommended to not reference the `Save` object constantly while the progra
 
 # Future plans
 
-- Add more data types
-  - Floats
-  - Doubles
-  - Longs
 - Add save file versions to allow format changes. Currently, any expansion must be done by adding new data to the end of the file.
 
 # Release
 
-[Latest](./BinSave/Release/0.0.2.jar)
+[Latest](./BinSave/Release/0.0.3.jar)
+
+[0.0.3](./BinSave/Release/0.0.3.jar)
 
 [0.0.2](./BinSave/Release/0.0.2.jar)
 
@@ -60,7 +58,9 @@ It is recommended to not reference the `Save` object constantly while the progra
 
 # API Reference
 
-[Latest](http://preston159.com/docs/BinSave/0.0.2/)
+[Latest](http://preston159.com/docs/BinSave/0.0.3/)
+
+[0.0.3](http://preston159.com/docs/BinSave/0.0.3/)
 
 [0.0.2](http://preston159.com/docs/BinSave/0.0.2/)
 

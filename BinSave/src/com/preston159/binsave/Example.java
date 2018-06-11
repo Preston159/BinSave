@@ -18,7 +18,9 @@ public class Example {
 				new Data("128", DataType.UINT_8BIT, 1), //1 byte, 8-bit unsigned integer
 				new Data("Z", DataType.CHAR_ASCII, 1), //1 byte, ascii character
 				new Data("ABCDEFG", DataType.CHAR_ASCII, 7), //7 bytes, 7 ascii characters
-				new Data("3_umlaut_u", DataType.CHAR_UNICODE, 3) //6 bytes, 3 unicode characters
+				new Data("3_umlaut_u", DataType.CHAR_UNICODE, 3), //6 bytes, 3 unicode characters
+				new Data("float", DataType.FLOAT, 1), //4 bytes, 1 floating-point number
+				new Data("double", DataType.DOUBLE, 1) //8 bytes, 1 double-precision floating-point number
 		);
 		s.storeByte("byte", (byte) 0x55); //store the byte 0x55 at "byte"
 		s.storeBools("8bools", new boolean[] { true, true, true, true, false, false, false, true }); //store an array of bools at "8bools"
@@ -30,6 +32,8 @@ public class Example {
 		s.storeString("3_umlaut_u", "\u00fc\u00fcf"); //store the string "\u00fc\u00fcf" at "3_umlaut_u"
 		String u = s.getString("3_umlaut_u"); //retrieve the string at "3_umlaut_u"
 		s.storeString("3_umlaut_u", u.replace('f', '\u00fc')); //replace the 'f' in the string with an umlaut u
+		s.storeFloat("float", 1.03f); //store 1.03 at "float"
+		s.storeDouble("double", Math.pow(2, 256)); //store 2^256 at "double"
 		s.store(); //write data to file
 		System.out.println(Integer.toHexString(s.getByte("byte"))); //retrieve the byte at "byte" and print in hex
 		boolean[] bools = s.getBools("8bools"); //retrieve the boolean[] at "8bools" and print
@@ -43,6 +47,8 @@ public class Example {
 		System.out.println(s.getChar("Z")); //print the character at "Z"
 		System.out.println(s.getString("ABCDEFG")); //print the string at "ABCDEFG"
 		System.out.println(s.getString("3_umlaut_u")); //print the string at "3_umlaut_u"
+		System.out.println(s.getFloat("float")); //print the float at "float"
+		System.out.println(s.getDouble("double")); //print the double at "double"
 	}
 	
 }

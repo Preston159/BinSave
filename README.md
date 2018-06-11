@@ -48,7 +48,9 @@ It is recommended to not reference the `Save` object constantly while the progra
 
 # Release
 
-[Latest](./BinSave/Release/0.0.2.jar)
+[Latest](./BinSave/Release/0.0.3.jar)
+
+[0.0.3](./BinSave/Release/0.0.3.jar)
 
 [0.0.2](./BinSave/Release/0.0.2.jar)
 
@@ -56,7 +58,9 @@ It is recommended to not reference the `Save` object constantly while the progra
 
 # API Reference
 
-[Latest](http://preston159.com/docs/BinSave/0.0.2/)
+[Latest](http://preston159.com/docs/BinSave/0.0.3/)
+
+[0.0.3](http://preston159.com/docs/BinSave/0.0.3/)
 
 [0.0.2](http://preston159.com/docs/BinSave/0.0.2/)
 
